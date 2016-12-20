@@ -1,389 +1,471 @@
-/* CSS Document */
-
-
-/* ---------- FONTAWESOME ---------- */
-
-
-/* ---------- http://fortawesome.github.com/Font-Awesome/ ---------- */
-
-
-/* ---------- http://weloveiconfonts.com/ ---------- */
-
-@import url(http://weloveiconfonts.com/api/?family=fontawesome);
-
-/* ---------- ERIC MEYER'S RESET CSS ---------- */
-
-
-/* ---------- http://meyerweb.com/eric/tools/css/reset/ ---------- */
-
-//@import url(http://meyerweb.com/eric/tools/css/reset/reset.css);
-
-/* ---------- FONTAWESOME ---------- */
-
-[class*="fontawesome-"]:before {
-    font-family: 'FontAwesome', sans-serif;
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500);
+@import url(https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css);
+// mixin
+@mixin keyframes($animation-name) {
+    @-webkit-keyframes #{$animation-name} {
+        @content;
+    }
+    @-moz-keyframes #{$animation-name} {
+        @content;
+    }
+    @-ms-keyframes #{$animation-name} {
+        @content;
+    }
+    @-o-keyframes #{$animation-name} {
+        @content;
+    }
+    @keyframes #{$animation-name} {
+        @content;
+    }
 }
 
+@mixin animation($str...) {
+    -webkit-animation: #{$str};
+    -moz-animation: #{$str};
+    -ms-animation: #{$str};
+    -o-animation: #{$str};
+    animation: #{$str};
+}
 
-/* ---------- GENERAL ---------- */
+@mixin transition($val) {
+    -webkit-transition: $val;
+    -moz-transition: $val;
+    -ms-transition: $val;
+    -o-transition: $val;
+    transition: $val;
+}
 
-* {
-    -moz-box-sizing: border-box;
+@mixin transition-delay($val) {
+    -webkit-transition-delay: $val;
+    -moz-transition-delay: $val;
+    -ms-transition-delay: $val;
+    -o-transition-delay: $val;
+    transition-delay: $val;
+}
+
+@mixin transform($val) {
+    -webkit-transform: $val;
+    -moz-transform: $val;
+    -ms-transform: $val;
+    -o-transform: $val;
+    transform: $val;
+}
+
+@mixin transform-origin($val) {
+    -webkit-transform-origin: $val;
+    -moz-transform-origin: $val;
+    -ms-transform-origin: $val;
+    -o-transform-origin: $val;
+    transform-origin: $val;
+}
+
+*,
+*:before,
+*:after {
     box-sizing: border-box;
-    &:before,
-    &:after {
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
+    @include transition(all cubic-bezier(0.37, 0.15, 0.54, 1.99) .5s);
 }
 
-.inner-div {
-    color: #606468;
-    font: 87.5%/1.5em 'Open Sans', sans-serif;
+body {
     margin: 0;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-}
-
-a {
-    color: #eee;
-    text-decoration: none;
-    &:hover {
-        text-decoration: underline;
-    }
-}
-
-.logintext {
-    border: none;
-    font-family: 'Open Sans', Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.5em;
-    -webkit-appearance: none;
-}
-
-p {
-    line-height: 1.5em;
-}
-
-.clearfix {
-    *zoom: 1;
-    &:before {
-        content: ' ';
-        display: table;
-    }
-    &:after {
-        content: ' ';
-        display: table;
-        clear: both;
-    }
-}
-
-.container {
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
-
-
-/* ---------- LOGIN ---------- */
-
-#login {
-    width: 380px;
-    margin: 0 auto;
-    form {
-        span {
-            background-color: #363b41;
-            border-radius: 3px 0px 0px 3px;
-            color: #606468;
-            display: block;
-            float: left;
-            height: 50px;
-            line-height: 50px;
-            text-align: center;
-            width: 50px;
-        }
-        input {
-            height: 50px;
-            outline: none;
-        }
-    }
-}
-
-.logintext {
-    background-color: #3b4148;
-    border-radius: 0px 3px 3px 0px;
-    color: #fff;
-    margin-bottom: 1em;
-    padding: 0 16px;
-    width: 330px;
-    outline: none;
-}
-
-#login form input[type="submit"] {
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    background-color: #ea4c88;
-    color: #eee;
-    font-weight: bold;
-    margin-bottom: 2em;
-    text-transform: uppercase;
-    width: 380px;
-    outline: none;
-}
-
-.signup_button {
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    background-color: #ea4c88;
-    color: #eee;
-    margin-bottom: 2em;
-    text-transform: uppercase;
-    border-color: #ea4c88;
-    outline: none;
-}
-
-#login {
-    form input[type="submit"]:hover {
-        background-color: #d44179;
-    }
-    >p {
-        text-align: center;
-        span {
-            padding-left: 5px;
-        }
-    }
-}
-
-
-/*Lets start with the cloud formation rather*/
-
-
-/*The container will also serve as the SKY*/
-
-#clouds {
-    padding: 50px 0;
-    background: #c9dbe9;
-    background: -webkit-linear-gradient(top, #c9dbe9 50%, #fff 100%);
-    background: -linear-gradient(top, #c9dbe9 50%, #fff 100%);
-    background: -moz-linear-gradient(top, #c9dbe9 50%, #fff 100%);
-}
-
-
-/*Time to finalise the cloud shape*/
-
-.cloud {
-    width: 200px;
-    height: 60px;
-    background: #fff;
-    border-radius: 200px;
-    -moz-border-radius: 200px;
-    -webkit-border-radius: 200px;
+    font-family: 'Roboto', sans-serif;
     position: relative;
     &:before {
         content: '';
-        position: absolute;
-        background: #fff;
-        width: 100px;
-        height: 80px;
-        position: absolute;
-        top: -15px;
-        left: 10px;
-        border-radius: 100px;
-        -moz-border-radius: 100px;
-        -webkit-border-radius: 100px;
-        -webkit-transform: rotate(30deg);
-        transform: rotate(30deg);
-        -moz-transform: rotate(30deg);
+        position: fixed;
+        display: inherit;
+        background-color: #29d08a;
+        width: 2500px;
+        height: 2500px;
+        top: 0;
+        border-radius: 50%;
+        left: 50%;
+        margin-left: -1250px;
+        top: 50%;
+        margin-top: -1200px;
+        @include animation(closeBody 1s ease forwards 1s);
     }
+}
+
+// color control
+$green: #29d08a;
+$white: #fff;
+$black: #000;
+$silver: #e6eef1;
+$slate: #4e5b6b;
+body {
+    background-color: $silver;
+    @include transform(translateZ(0));
+}
+
+aside {
+    text-align: center;
+    display: block;
+    background-color: $green;
+    width: 284px;
+    height: 380px;
+    margin: auto;
+    border: solid 10px $white;
+    box-shadow: 0 0 10px transparentize($black, .8);
+    position: relative;
+    margin-top: 150px;
+    @include animation(showAside .25s ease forwards 2s);
+    opacity: 0;
+    header {}
+    &:hover,
+    &:focus {
+        margin-top: 100px;
+        height: 530px;
+        box-shadow: 0 0 25px transparentize($black, .8);
+        .profile-bio {
+            // top: -55px;
+            // opacity: 1;
+            // visibility: visible;
+        }
+        header {
+            padding-top: 106px;
+            h1 {
+                top: 332px;
+            }
+            h2 {
+                top: 390px;
+            }
+        }
+        .profile-social-links {
+            bottom: 0;
+            p {
+                font-weight: bold;
+                margin-bottom: 20px !important;
+                a {
+                    color: #fff;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+header {
+    padding: 74px 0 35px;
+    width: 100px;
+    margin: auto;
+    a {
+        display: inline-block;
+        text-align: center;
+        position: relative;
+        width: 100px;
+        height: 208px;
+        // border-bottom: solid 3px rgba(0, 0, 0, 0.15);
+        border-bottom: solid 3px darken($green, 5%);
+        // opacity: 0;
+        @include transform(translateY(30px));
+        @include animation(showAva .5s cubic-bezier(0.37, 0.15, 0.54, 1.99) forwards 2.75s);
+        opacity: 0;
+        img {
+            width: 100px;
+            height: auto;
+            padding-bottom: 7px;
+            position: absolute;
+            left: 0;
+            bottom: 4px;
+            @include animation(movebody 1s ease infinite);
+        }
+        &:before,
+        &:after {
+            content: '';
+            z-index: 5;
+        }
+        &:before {
+            width: 17px;
+            height: 40px;
+            display: inline-block;
+            background-color: #373737;
+            background-image: linear-gradient(transparent 50%, rgba(255, 255, 255, 0.2)50%);
+            background-size: 20px 5px;
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            border-radius: 4px;
+            @include animation(tire .8s linear infinite);
+        }
+        &:after {
+            width: 28px;
+            height: 32px;
+            background-color: #DEE2EA;
+            display: inline-block;
+            position: absolute;
+            bottom: 16px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            border-radius: 10px 10px 0 0;
+        }
+        &:hover {
+            @include transform(scale(1.05));
+        }
+    }
+    h1,
+    h2 {
+        position: absolute;
+        background-color: $slate;
+        z-index: 20;
+        left: 50%;
+        right: 50%;
+    }
+    h1 {
+        color: $white;
+        height: 50px;
+        top: 300px;
+        text-align: center;
+        font-size: 24px;
+        padding: 20px 0 0;
+        font-weight: 500;
+        color: transparent;
+        @include animation(showTitle .25s cubic-bezier(0.37, 0.15, 0.54, 1.99) forwards 2.25s, showTitle-1 .5s cubic-bezier(0.37, 0.15, 0.54, 1.99) forwards 2.75s);
+        &:after,
+        &:before {
+            content: '';
+            height: 0;
+            width: 0;
+            top: -20px;
+            display: inline-block;
+            position: absolute;
+            @include transform(scaleY(0));
+            @include transform-origin(center bottom);
+            @include animation(showTips .25s cubic-bezier(0.37, 0.15, 0.54, 1.99) forwards 2.5s);
+        }
+        &:before {
+            border-left: solid 15px transparent;
+            border-right: solid 15px darken($slate, 5%);
+            border-bottom: solid 10px darken($slate, 5%);
+            border-top: solid 10px transparent;
+            left: 0;
+        }
+        &:after {
+            border-right: solid 15px transparent;
+            border-left: solid 15px darken($slate, 5%);
+            border-bottom: solid 10px darken($slate, 5%);
+            border-top: solid 10px transparent;
+            right: 0;
+        }
+    }
+    h2 {
+        color: lighten($slate, 15%);
+        height: 40px;
+        top: 358px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 500;
+        color: transparent;
+        @include animation(showTitle .25s cubic-bezier(0.37, 0.15, 0.54, 1.99) forwards 2.25s, showTitle-2 .5s cubic-bezier(0.37, 0.15, 0.54, 1.99) forwards 3s);
+    }
+    &:hover {
+        ~.profile-bio {
+            top: -55px;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+.profile-bio {
+    position: absolute;
+    top: -55px;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 30px;
+    text-align: center;
+    font-size: 14px;
+    left: -110px;
+    width: 230px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+    top: 0;
+    opacity: 0;
+    visibility: hidden;
     &:after {
         content: '';
+        height: 0;
+        width: 0;
+        display: inline-block;
         position: absolute;
-        background: #fff;
-        width: 100px;
-        height: 80px;
-        position: absolute;
-        top: -15px;
-        left: 10px;
-        border-radius: 100px;
-        -moz-border-radius: 100px;
-        -webkit-border-radius: 100px;
-        -webkit-transform: rotate(30deg);
-        transform: rotate(30deg);
-        -moz-transform: rotate(30deg);
-        width: 120px;
-        height: 120px;
-        top: -55px;
-        left: auto;
-        right: 15px;
+        border-left: solid 10px transparent;
+        border-right: solid 10px $white;
+        border-bottom: solid 15px transparent;
+        border-top: solid 15px $white;
+        right: 30px;
+        @include transform(rotate(-25deg));
+    }
+    p {
+        color: $slate;
     }
 }
 
-
-/*Time to animate*/
-
-.x1 {
-    -webkit-animation: moveclouds 15s linear infinite;
-    -moz-animation: moveclouds 15s linear infinite;
-    -o-animation: moveclouds 15s linear infinite;
-}
-
-.x6 {
-    -webkit-animation: moveclouds 30s linear infinite;
-    -moz-animation: moveclouds 30s linear infinite;
-    -o-animation: moveclouds 30s linear infinite;
-}
-
-.x7 {
-    -webkit-animation: moveclouds 15s linear infinite;
-    -moz-animation: moveclouds 15s linear infinite;
-    -o-animation: moveclouds 15s linear infinite;
-}
-
-.x8 {
-    -webkit-animation: moveclouds 23s linear infinite;
-    -moz-animation: moveclouds 23s linear infinite;
-    -o-animation: moveclouds 23s linear infinite;
-}
-
-
-/*variable speed, opacity, and position of clouds for realistic effect*/
-
-.x2 {
-    left: 200px;
-    -webkit-transform: scale(0.6);
-    -moz-transform: scale(0.6);
-    transform: scale(0.6);
-    opacity: 0.6;
-    /*opacity proportional to the size*/
-    /*Speed will also be proportional to the size and opacity*/
-    /*More the speed. Less the time in 's' = seconds*/
-    -webkit-animation: moveclouds 25s linear infinite;
-    -moz-animation: moveclouds 25s linear infinite;
-    -o-animation: moveclouds 25s linear infinite;
-}
-
-.x3 {
-    left: -250px;
-    top: -200px;
-    -webkit-transform: scale(0.8);
-    -moz-transform: scale(0.8);
-    transform: scale(0.8);
-    opacity: 0.8;
-    /*opacity proportional to the size*/
-    -webkit-animation: moveclouds 20s linear infinite;
-    -moz-animation: moveclouds 20s linear infinite;
-    -o-animation: moveclouds 20s linear infinite;
-}
-
-.x4 {
-    left: 470px;
-    top: -250px;
-    -webkit-transform: scale(0.75);
-    -moz-transform: scale(0.75);
-    transform: scale(0.75);
-    opacity: 0.75;
-    /*opacity proportional to the size*/
-    -webkit-animation: moveclouds 18s linear infinite;
-    -moz-animation: moveclouds 18s linear infinite;
-    -o-animation: moveclouds 18s linear infinite;
-}
-
-.x5 {
-    left: -150px;
-    top: -150px;
-    -webkit-transform: scale(0.8);
-    -moz-transform: scale(0.8);
-    transform: scale(0.8);
-    opacity: 0.8;
-    /*opacity proportional to the size*/
-    -webkit-animation: moveclouds 20s linear infinite;
-    -moz-animation: moveclouds 20s linear infinite;
-    -o-animation: moveclouds 20s linear infinite;
-}
-
-@-webkit-keyframes moveclouds {
-    0% {
-        margin-left: 2000px;
-    }
-    100% {
-        margin-left: -2000px;
-    }
-}
-
-@-moz-keyframes moveclouds {
-    0% {
-        margin-left: 2000px;
-    }
-    100% {
-        margin-left: -2000px;
-    }
-}
-
-@-o-keyframes moveclouds {
-    0% {
-        margin-left: 2000px;
-    }
-    100% {
-        margin-left: -2000px;
-    }
-}
-
-.bottom {
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
-    padding: 10px 0;
-    height: 100px;
+.profile-social-links {
+    list-style: none;
     position: absolute;
-    h3 {
-        color: white;
-        font-size: 30px;
-        font-weight: bold;
-        margin-top: 45px;
-        padding-bottom: 45px;
+    padding: 0;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    opacity: 0;
+    @include animation(showSoc .25s cubic-bezier(0.37, 0.15, 0.54, 1.99) forwards 2.5s);
+    li {
+        display: inline-block;
+        a {
+            display: inline-block;
+            padding: 10px;
+            i {
+                &:before {
+                    color: darken($green, 10%);
+                    font-size: 20px;
+                }
+            }
+            &:hover {
+                i {
+                    &:before {
+                        color: darken($green, 15%);
+                    }
+                }
+            }
+        }
     }
 }
 
-.blue {
-    color: #09c;
+@include keyframes(movebody) {
+    0% {
+        bottom: 5px;
+    }
+    25% {
+        bottom: 4px;
+    }
+    50% {
+        bottom: 5px;
+    }
+    75% {
+        bottom: 4px;
+    }
+    100% {
+        bottom: 5px;
+    }
 }
 
-#login {
-    -webkit-animation-name: login;
-    animation-name: login;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
+@include keyframes(tire) {
+    from {
+        background-position: center top;
+    }
+    to {
+        background-position: center bottom;
+    }
 }
 
-@-webkit-keyframes login {
+@include keyframes(showAside) {
+    0% {
+        border-width: 0;
+        opacity: 0;
+    }
+    1% {
+        opacity: 1;
+    }
+    100% {
+        border-width: 10px;
+        opacity: 1;
+    }
+}
+
+@include keyframes(showTitle) {
+    0% {
+        left: 50%;
+        right: 50%;
+    }
+    100% {
+        left: -40px;
+        right: -40px;
+    }
+}
+
+@include keyframes(showTitle-1) {
+    0% {
+        padding-top: 25px;
+        color: transparent;
+    }
+    100% {
+        padding-top: 20px;
+        color: $white;
+    }
+}
+
+@include keyframes(showTitle-2) {
+    0% {
+        padding-top: 5px;
+        color: transparent;
+    }
+    100% {
+        padding-top: 0px;
+        color: lighten($slate, 20%);
+    }
+}
+
+@include keyframes(showTips) {
+    0% {
+        @include transform(scaleY(0));
+    }
+    100% {
+        @include transform(scaleY(1));
+    }
+}
+
+@include keyframes(showAva) {
+    0% {
+        @include transform(translateY(30px));
+        opacity: 0;
+    }
+    100% {
+        @include transform(translateY(0));
+        opacity: 1;
+    }
+}
+
+@include keyframes(showSoc) {
     0% {
         opacity: 0;
-        -webkit-transform: translate3d(-2000px, 0, 0);
-        transform: translate3d(-2000px, 0, 0);
     }
     100% {
         opacity: 1;
-        -webkit-transform: none;
-        transform: none;
     }
 }
 
-@keyframes login {
+@include keyframes(closeBody) {
     0% {
-        opacity: 0;
-        -webkit-transform: translate3d(-2000px, 0, 0);
-        transform: translate3d(-2000px, 0, 0);
+        width: 2500px;
+        height: 2500px;
+        border-radius: 50%;
+        left: 50%;
+        margin-left: -1250px;
+        top: 50%;
+        margin-top: -1200px;
+        right: auto;
+    }
+    50% {
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        left: 0;
+        margin-left: auto;
+        margin-right: auto;
+        right: 0;
+        top: 200px;
     }
     100% {
-        opacity: 1;
-        -webkit-transform: none;
-        transform: none;
+        width: 284px;
+        height: 380px;
+        border-radius: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        top: -150px;
+        margin-top: 150px;
     }
 }
