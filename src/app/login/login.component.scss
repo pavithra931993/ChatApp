@@ -78,6 +78,7 @@
         }
         
         aside {
+            background-color: #fff !important;
             text-align: center;
             display: block;
             width: 284px;
@@ -114,7 +115,7 @@
                         font-weight: bold;
                         margin-bottom: 20px !important;
                         a {
-                            color: #fff;
+                            color: #000;
                             cursor: pointer;
                         }
                     }
@@ -123,8 +124,8 @@
             .labletext {
                 background-color: transparent;
                 border: none;
-                color: #fff;
-                border-bottom: 2px solid #fff;
+                color: #000;
+                border-bottom: 2px solid #000;
                 width: 240px;
                 padding: 15px;
                 outline: none;
@@ -203,7 +204,8 @@
             h1,
             h2 {
                 position: absolute;
-                background-color: $slate;
+                box-shadow: 0 0 49px rgba(0, 0, 0, 0.5);
+                background-color: #f6438b;
                 z-index: 20;
                 left: 50%;
                 right: 50%;
@@ -253,7 +255,6 @@
                 }
             }
             h2 {
-                color: lighten($slate, 15%);
                 height: 40px;
                 top: 358px;
                 text-align: center;
@@ -270,7 +271,7 @@
                 }
             }
             p {
-                color: #fff;
+                color: #000;
                 font-weight: bold;
                 font-size: 20px;
             }
