@@ -5,13 +5,15 @@
                 Login
             </p>
             <h1>
-                <input type="submit" name="submit" value="Login" class="submit">
+                <button type="button" class="submit" (click)="submit(uname, pass)">Login</button>
             </h1>
         </header>
-        <input type="text" name="username" placeholder="Username" class="labletext">
-        <input type="password" name="password" placeholder="Password" class="labletext">
+        <input type="text" placeholder="Username" class="labletext" name="uname" required [(ngModel)]="uname">
+        <input type="password" placeholder="Password" class="labletext" name="pass" required [(ngModel)]="pass">
+        <div class="error">{{error}}</div>
         <div class="profile-social-links">
-            <p>Not a member? <a>Signin</a></p>
+            <p>Not a member?
+                <a (click)="signin()">Signin</a></p>
         </div>
     </form>
 </aside>

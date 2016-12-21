@@ -5,11 +5,15 @@ import { HttpModule } from '@angular/http';
 import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

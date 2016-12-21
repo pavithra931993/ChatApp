@@ -77,6 +77,10 @@
             @include transform(translateZ(0));
         }
         
+        .pavithra {
+            color: #fff;
+        }
+        
         aside {
             background-color: #fff !important;
             text-align: center;
@@ -475,4 +479,10 @@
                 top: -150px;
                 margin-top: 150px;
             }
+        }
+        
+        .error {
+            color: red;
+            font-size: 15px;
+            font-weight: bold;
         }
