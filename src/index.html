@@ -12,3 +12,195 @@
   <app-root>Loading...</app-root>
 </body>
 </html>
+      var usernames = {};
+        var rooms = [];
+
+        connection.on(Socket.CONNECT, (socket: any) => {
+            console.log('Connection ON');
+            socket.emit(Socket.UPDATEROOMS, rooms, socket.room);   
+
+            //Create Group Room
+            socket.on(Socket.CREATEROOM, (room: any) => {
+                rooms.push(room);
+                socket.join(room);
+                socket.emit(Socket.UPDATEROOMS, rooms, socket.room);
+            });
+
+            //Add Friends in Group chat
+            socket.on(Socket.ADDFRIENDS, function (username) {
+                socket.username = username;
+                socket.room = rooms;
+                usernames[username] = username;
+                socket.join(rooms);
+                socket.emit(Socket.UPDATECHAT, username, 'you have connected to' + rooms);
+                //socket.broadcast.to(rooms).emit(Socket.UPDATECHAT, 'SERVER', username + ' has connected to this' +rooms+ 'room');
+                connection.to(rooms).emit(Socket.UPDATECHAT, 'SERVER', username + ' has connected to this' + rooms + 'room');
+                socket.emit(Socket.UPDATEROOMS, rooms, rooms);
+            });
+
+            //Send Message in Group
+            socket.on(Socket.CHATMESSAGE, function (data) {
+                connection["in"](socket.room).emit(Socket.UPDATECHAT, socket.username, data);
+            });
+
+            //Swtich the Group
+            socket.on('switchRoom', function (newroom) {
+                var oldroom;
+                oldroom = socket.room;
+                socket.leave(socket.room);
+                socket.join(newroom);
+                socket.emit(Socket.UPDATECHAT, 'SERVER', 'you have connected to ' + newroom);
+                socket.broadcast.to(oldroom).emit(Socket.UPDATECHAT, 'SERVER', socket.username + ' has left this room');
+                socket.room = newroom;
+                socket.broadcast.to(newroom).emit(Socket.UPDATECHAT, 'SERVER', socket.username + ' has joined this room');
+                socket.emit(Socket.UPDATEROOMS, rooms, newroom);
+            });
+
+            //Disconnect the Group
+            socket.on('disconnect', function () {
+                delete usernames[socket.username];
+                connection.emit(Socket.UPDATEUSERS, usernames);
+                socket.broadcast.emit(Socket.UPDATECHAT, 'SERVER', socket.username + ' has disconnected');
+                socket.leave(socket.room);
+            });
+
+
+
+
+
+            // socket.on(Socket.JOIN, (m: any) => {
+            //     socket.join(m.userId);
+            //     //this.ChatBusiness.CreateRoomId(m);
+            // });
+            // socket.on(Socket.CHATMESSAGE, (m: any) => {
+            //     connection.to(m.userId).emit(Socket.CHATMESSAGE, m);
+            //     self.ChatBusiness.ChatMessageOneToOne(m);
+            // });
+
+            // socket.on(Socket.DISCONNECT, function () {
+            //     console.log('User disconnected');
+            // });
+
+        });
+###############
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Chat POC</title>
+        <style>
+            #chat_zone strong {
+                color: white;
+                background-color: black;
+                padding: 2px;
+            }
+        </style>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+<script>
+ var socket = io.connect('http://192.168.2.54:8085/groupchat');
+
+// socket.on('connect', function(){
+//     //socket.emit('add_friends', prompt("What's your name: "));
+//     socket.emit("join", userInfo);
+// });
+
+//var username = "sam";
+
+$(function(){   
+    $('#roombutton').click(function(){
+        var name = $('#roomname').val();
+       socket.emit('createroom', name);
+       $('#roomname').val('');
+       
+    });
+
+     $('#addfriendsbutton').click(function(){
+        var name = $('#addfriendsname').val();
+        socket.emit('add_friends', name);
+        $('#addfriendsname').val('');
+       
+    });
+
+});
+
+socket.on('updaterooms', function (room) {
+    $('#groupcreated').append('<b> you </b> created group' + room + '<br>');
+     $('#rooms').append('<div>' + room + '</div>');
+});
+
+socket.on('updatechat', function (username, data) {
+    $('#conversation').append('<b>'+ username + ':</b> ' + data + '<br>');
+});
+
+
+socket.on('updaterooms', function (rooms, current_room) {
+    $('#rooms').empty();
+    $.each(rooms, function(key, value) {
+        if(value == current_room){
+            $('#rooms').append('<div>' + value + '</div>');
+        }
+        else {
+            $('#rooms').append('<div><a href="#" onclick="switchRoom(\''+value+'\')">' + value + '</a></div>');
+        }
+    });
+});
+
+function switchRoom(room){
+    socket.emit('switchRoom', room);
+}
+
+$(function(){   
+    $('#datasend').click( function() {
+        var message = $('#data').val();
+        $('#data').val('');
+        socket.emit('chat_message', message);
+    });
+
+    $('#data').keypress(function(e) {
+        if(e.which == 13) {
+            $(this).blur();
+            $('#datasend').focus().click();
+        }
+    });
+
+    $('#roombutton').click(function(){
+        var name = $('#roomname').val();
+        return name;
+        //$('#roomname').val('');
+       
+    });
+});
+
+</script>
+    </head>
+ 
+    <body>
+      <div style="float:left;width:100px;border-right:1px solid black;height:300px;padding:10px;overflow:scroll-y;">
+        <b>ROOMS</b>
+        <div id="rooms"></div>
+    </div>
+    <div style="float:left;width:300px;height:250px;overflow:scroll-y;padding:10px;">
+       <div id="addfriendscreation"></div>
+       <input id="addfriendsname" style="width:200px;" />
+        <input type="button" id="addfriendsbutton" value="create friends" />
+   </div>
+
+    <div style="float:left;width:300px;height:250px;overflow:scroll-y;padding:10px;">
+        <div id="groupcreated"></div>
+        <div id="conversation"></div>
+        <input id="data" style="width:200px;" />
+        <input type="button" id="datasend" value="send" />
+    </div>
+
+   <div style="float:left;width:300px;height:250px;overflow:scroll-y;padding:10px;">
+       <div id="room creation"></div>
+       <input id="roomname" style="width:200px;" />
+        <input type="button" id="roombutton" value="create room" />
+   </div>
+
+   
+
+    </body>
+</html>
